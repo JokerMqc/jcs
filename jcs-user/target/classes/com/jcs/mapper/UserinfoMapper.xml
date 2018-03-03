@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcs.mapper.UserinfoMapper" >
+
+    <!--结果集-->
+  <resultMap id="BaseResultMap" type="com.jcs.entity.Userinfo" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="username" property="username" jdbcType="VARCHAR" />
+	    <result column="password" property="password" jdbcType="VARCHAR" />
+	    <result column="isMaster" property="isMaster" jdbcType="TINYINT" />
+  </resultMap>
+
+        <!--基本字段-->
+      <sql id="Base_Column_List" >
+            id,
+            username,
+            `password`,
+            isMaster
+      </sql>
+
+    <sql id="where_Sql">
+        <if test="id != null" >
+            and id = #{ id,jdbcType=INTEGER
+            </if>
+        <if test="username != null" >
+            and username = #{ username,jdbcType=VARCHAR
+            </if>
+        <if test="password != null" >
+            and `password` = #{ password,jdbcType=VARCHAR
+            </if>
+        <if test="isMaster != null" >
+            and isMaster = #{ isMaster,jdbcType=TINYINT
+            </if>
+    </sql>
+
+
+     <!--插入记录-->
+    <insert id="insert" parameterType="com.jcs.entity.Userinfo">
+         insert into userinfo
+
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            id,
+            username,
+            `password`,
+            isMaster,
+         </trim>
+
+         <trim prefix="values (" suffix=")" suffixOverrides="," >
+                #{ id,jdbcType=INTEGER },
+                #{ username,jdbcType=VARCHAR },
+                #{ password,jdbcType=VARCHAR },
+                #{ isMaster,jdbcType=TINYINT },
+         </trim>
+    </insert>
+
+
+    <!--通过id 删除-->
+    <update id="delById">
+         update userinfo set flag ='1' where
+                 id = #{ id,jdbcType=INTEGER }
+    </update>
+
+
+    <!--更新-->
+    <update id="update" parameterType="com.jcs.entity.Userinfo" >
+        update userinfo
+            <set >
+                <include refid="where_Sql"/>
+             </set>
+                where
+                        id = #{ id,jdbcType=INTEGER }
+     </update>
+
+
+    <!--根据 实体条件查询-->
+    <select id="findOneByParams" resultMap="BaseResultMap" parameterType="com.jcs.entity.Userinfo">
+       select  <include refid="Base_Column_List"/> from userinfo  where flag ='0'
+       <include refid="where_Sql"/>
+    </select>
+
+    <!--根据id查询-->
+    <select id="findOneById" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from userinfo where flag ='0' and
+            id = #{ id,jdbcType=INTEGER }
+    </select>
+
+    <!--查询列表-->
+    <select id="findByList" resultMap="BaseResultMap" parameterType="com.jcs.entity.Userinfo">
+         select  <include refid="Base_Column_List" /> from userinfo  where flag ='0'
+         <include refid="where_Sql"/>
+    </select>
+
+    <!--查询列表 通过条件-->
+    <select id="findByParams" resultMap="BaseResultMap" parameterType="map">
+        select  <include refid="Base_Column_List" /> from userinfo  where flag ='0'
+        <include refid="where_Sql"/>
+    </select>
+
+
+    <!--获取总条数-->
+      <select id="getTotal" resultType="java.lang.Integer"  parameterType="com.jcs.entity.Userinfo" >
+        select count(1) from userinfo
+        <where>
+            <include refid="where_Sql"/>
+        </where>
+      </select>
+
+    <!--通过用户名和密码查询用户-->
+    <select id="findUserByNameAndPassword" resultType="com.jcs.entity.Userinfo" parameterType="com.jcs.entity.Userinfo">
+        SELECT username,password
+        FROM userinfo  where username = #{username,jdbcType=VARCHAR} and  password = #{password,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

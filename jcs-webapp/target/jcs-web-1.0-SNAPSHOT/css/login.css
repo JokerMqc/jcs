@@ -1,0 +1,87 @@
+/*总体样式*/
+*{
+	margin: 0px;
+	padding: 0px;
+}
+.fr{
+	float: right;
+}
+.fl{
+	float: left;
+}
+.clean{
+	clear: both;
+}
+a{
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+.color_red{
+	color: red;
+}
+/*内容样式*/
+#container{
+	width: 995px;
+	height: 768px;
+	margin: 0px auto;
+	background-image: url(../images/sms_bg.png);
+	background-repeat: repeat-x;
+}
+/*标题样式*/
+#title{
+	width: 397px;
+	height: 38px;
+	margin: 0px auto;
+	background-image: url(../images/sms_login_title.png);
+	background-repeat: no-repeat;
+}
+/*登录样式*/
+#login{
+	width: 397px;
+	height: 400px;
+	margin: 0px auto;
+}
+#login table{
+	border-collapse:   separate;
+	border-spacing:   15px;
+	margin: 0px auto;
+	font-size: 14px;
+	color: #272B2E;
+}
+#login tr{
+	padding-bottom: 10px;
+}
+#login input{
+	height: 20px;
+}
+.login1{
+	width: 87px;
+	height: 39px;
+	background-image: url(../images/sms_btn_login.png);
+}
+.reset1{
+	width: 87px;
+	height: 39px;
+	background-image:url(../images/sms_btn_login.png);
+}
+
+#register{
+	width: 87px;
+	height: 39px;
+	background-image: url(../images/sms_btn_reg.png);
+}
+
+#login span,a{
+	vertical-align: middle;
+	padding-top: 25px;
+	font-size: 12px;
+	color: #333333;
+}
+#login span {
+	margin-left: 10px;
+}
+#login a{
+	color: blue;
+}
